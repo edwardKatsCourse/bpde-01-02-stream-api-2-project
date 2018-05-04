@@ -43,12 +43,23 @@ public class Main {
                 System.out.println("Enter movie year: ");
                 String stringYear = new Scanner(System.in).nextLine();
 
-                Integer year;
-                if (stringYear == null || stringYear.isEmpty()) {
-                    year = null;
-                } else {
-                    year = Integer.parseInt(stringYear);
-                }
+                //THIS PART CHANGED TO OPTIONAL
+                Integer year = Optional.of(stringYear)
+                        .map(x -> {
+                            if (x.isEmpty()) {
+                                return null;
+                            } else {
+                                return Integer.parseInt(x);
+                            }
+                        })
+                        .orElse(null);
+
+//                if (stringYear == null || stringYear.isEmpty()) {
+//                    year = null;
+//                } else {
+//                    year = Integer.parseInt(stringYear);
+//                }
+
 
                 //Found movies
                 List<Movie> foundMovies = searchMovies(name, year);
